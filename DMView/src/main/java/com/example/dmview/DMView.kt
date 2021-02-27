@@ -186,4 +186,27 @@ class DMView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : DMView) {
+
+        private val animator : Animator = Animator(view)
+        private val dm : DM = DM(0)
+        private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+        fun render(canvas : Canvas) {
+            canvas.drawColor(backColor)
+            dm.draw(canvas, paint)
+            animator.animate {
+                dm.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            dm.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
