@@ -1,0 +1,3 @@
+include ':DMView'
+include ':app'
+rootProject.name = "LinkedDMView"
