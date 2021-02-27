@@ -23,7 +23,8 @@ val strokeFactor : Float = 90f
 val sizeFactor : Float = 4.5f
 val delay : Long = 20
 val backColor : Int = Color.parseColor("#BDBDBD")
-val deg : Float = 30f
+val deg : Float = -30f
+val offset : Float = 0.33f
 
 fun Int.inverse() : Float = 1f / this
 fun Float.maxScale(i : Int, n : Int) : Float = Math.max(0f, this - i * n.inverse())
@@ -43,9 +44,15 @@ fun Canvas.drawDM(scale : Float, w : Float, h : Float, paint : Paint) {
     for (j in 0..1) {
         save()
         scale(1f, 1f - 2 *  j)
-        drawLine(0f, 0f, size * 0.5f * sf1, 0f, paint)
-        drawLine(0f, 0f, -size * 0.5f * sf2, -size * 0.5f * sf2, paint)
-        drawLine(-size / 2, -size / 2, -size / 2 + size * sf3, -size / 2 + size * 0.5f * sf3, paint)
+        drawLine(0f, 0f, size * offset * sf1, 0f, paint)
+        drawLine(0f, 0f, -size * offset * sf2, -size * offset * sf2, paint)
+        drawLine(
+            -size * offset,
+            -size * offset,
+            -size * offset + (2 * offset * size * sf3),
+            -size * offset + (offset * size * sf3),
+            paint
+        )
         restore()
     }
     restore()
