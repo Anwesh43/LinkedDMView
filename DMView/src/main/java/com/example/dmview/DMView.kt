@@ -211,4 +211,12 @@ class DMView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+        fun create(activity: Activity) : DMView {
+            val view : DMView = DMView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
